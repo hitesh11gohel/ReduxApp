@@ -43,7 +43,7 @@ const Cart = () => {
             </th>
           </tr>
         </thead>
-
+      {/* //Demo */}
         {cart.map(({ id, title, image, price }) => (
           <tbody key={id}>
             <tr>
