@@ -1,6 +1,6 @@
 import { ActionTypes } from "./../Types";
 
-const initState = {
+const productCartQuantityInitState = {
   id: 0,
   title: "",
   quantity: 1,
@@ -8,7 +8,7 @@ const initState = {
   total: 0,
 };
 
-export const ProductCartQuantityReducer = (state = initState, action) => {
+export const ProductCartQuantityReducer = (state = productCartQuantityInitState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_TO_PRODUCT:
       const { id, title, price } = action.payload;

@@ -1,10 +1,10 @@
 import { ActionTypes } from "./../Types";
 
-const initState = {
+const productInitState = {
   products: [],
 };
 
-export const productReducer = (state = initState, { type, payload }) => {
+export const productReducer = (state = productInitState, { type, payload }) => {
   switch (type) {
     case ActionTypes.SET_PRODUCTS:
       return { ...state, products: payload };

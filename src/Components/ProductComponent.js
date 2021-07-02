@@ -7,6 +7,7 @@ const ProductComponent = () => {
   const products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  console.log("setQuantity",setQuantity)
 
   const renderList = products.map(({ id, title, image, price, category }) => {
     return (
@@ -42,9 +43,15 @@ const ProductComponent = () => {
                 style={{ width: "100%", marginTop: "5px" }}
                 onClick={() => {
                   dispatch(
-                    addToCart({ id, title, image, price, category, quantity })
+                    addToCart({
+                      id,
+                      title,
+                      image,
+                      price,
+                      category,
+                      quantity,
+                    })
                   );
-                  console.log("SetQuantity : ", setQuantity(1));
                 }}
               >
                 <div className="hidden content">

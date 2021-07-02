@@ -8,7 +8,6 @@ import Blank_Cart from "./../assets/blank-cart.jpg";
 const Cart = () => {
   const cart = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
-  console.log("Cart Components :", cart);
 
   function Loading() {
     return (
@@ -81,7 +80,7 @@ const Cart = () => {
                     x
                   </td>
                   <td className="text-center">
-                    <b>{totalPrice || price} $</b>
+                    <b>{totalPrice || price * quantity} $</b>
                   </td>
                   <td className="text-center">
                     <button

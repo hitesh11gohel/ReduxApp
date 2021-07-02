@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 const Header = () => {
   const cart = useSelector((state) => state.cart.cartItems);
-  console.log("cart", cart);
+  console.log("Header's Cart", cart);
   const history = useHistory();
 
   return (

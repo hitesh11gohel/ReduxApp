@@ -32,7 +32,6 @@ const Todo = () => {
     setName("");
   };
 
-  console.log(todos);
 
   return (
     <>

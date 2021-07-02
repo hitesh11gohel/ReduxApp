@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchProduct,
+  selectedProduct,
   removeSelectedProduct,
   addToCart,
   addQuantity,
@@ -20,7 +20,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (productId && productId !== "") dispatch(fetchProduct(productId));
+    if (productId && productId !== "") dispatch(selectedProduct(productId));
     return () => {
       dispatch(removeSelectedProduct());
     }; // eslint-disable-next-line

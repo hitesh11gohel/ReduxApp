@@ -1,14 +1,26 @@
 import { ActionTypes } from "./../Types";
-const initState = { cartItems: [] };
+const cartInitState = { cartItems: [] };
 
-export const cartReducer = (state = initState, { type, payload }) => {
+export const cartReducer = (state = cartInitState, { type, payload }) => {
   switch (type) {
     case ActionTypes.ADD_TO_CART:
-      return { cartItems: [...state.cartItems, payload] };
+      let check = state.cartItems.find((item) => item.id === payload.id);
+      if (check) {
+        let index = state.cartItems.findIndex((item) => item.id === payload.id);
+        check.quantity = payload.quantity;
+        check.price = payload.price;
+        state.cartItems[index] = check;
+        return state;
+      } else {
+        return { ...state, cartItems: [...state.cartItems, payload] };
+      }
+
 
     case ActionTypes.REMOVE_TO_CART:
-      //   return [...state, state.cart.filter((id) => id !== payload)]
-      return {...state, cartItems : [...state.cartItems.filter((item => item.id !== payload))]}
+      return {
+        ...state,
+        cartItems: [...state.cartItems.filter((item) => item.id !== payload)],
+      };
 
     default:
       return state;
