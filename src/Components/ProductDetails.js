@@ -1,24 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchProduct,
   removeSelectedProduct,
   addToCart,
+  addQuantity,
+  addProductWithQuantity,
 } from "./../Redux/actions/actions";
 
 const ProductDetails = () => {
   const product = useSelector((state) => state.product);
-  const { image, title, description, price, category } = product;
+  const { id, image, title, description, price, category } = product;
+  const [totalPrice, setTotalPrice] = useState(price);
+
+  // const cartItems = useSelector((state) => state.productCartQuantity);
+  const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (productId && productId !== "") dispatch(fetchProduct(productId));
     return () => {
-      dispatch(removeSelectedProduct()); 
+      dispatch(removeSelectedProduct());
     }; // eslint-disable-next-line
   }, [productId]);
+
+  useEffect(() => {
+    setTotalPrice(price * quantity); // eslint-disable-next-line
+  }, [quantity]);
 
   return (
     <>
@@ -46,7 +56,9 @@ const ProductDetails = () => {
             style={{ width: "75%", margin: "auto auto" }}
           >
             <div className="ui two column stackable center aligned grid">
-              <div className="ui vertical divider">&</div>
+              <div className="ui vertical divider">
+                <span style={{ fontSize: "20px" }}>&</span>
+              </div>
               <div className="middle aligned row">
                 <div className="column lp">
                   <img
@@ -57,7 +69,7 @@ const ProductDetails = () => {
                       width: "300px",
                       height: "350px",
                       margin: "auto",
-                      padding: "15px"
+                      padding: "15px",
                     }}
                   />
                 </div>
@@ -68,20 +80,76 @@ const ProductDetails = () => {
                       ${price}
                     </a>
                   </h2>
-                  <h3 className="ui brown block header">{category}</h3>
-                  <p>{description}</p>
-                  <button
-                    className="ui vertical animated button teal"
-                    tabIndex="0"
-                    onClick={() => {
-                      dispatch(addToCart(product));
-                    }}
+                  <h3
+                    className="ui brown block header"
+                    style={{ fontSize: "25px" }}
                   >
-                    <div className="hidden content">
-                      <i className="shop icon"></i>
-                    </div>
-                    <div className="visible content">Add To Cart</div>
-                  </button>
+                    {category}
+                  </h3>
+
+                  <div style={{ display: "inline-flex", margin: "10px 0px" }}>
+                    <button
+                      className="btn btn-light"
+                      onClick={() => {
+                        if (quantity === 1) {
+                        } else {
+                          setQuantity(quantity - 1);
+                        }
+                        dispatch(addQuantity(quantity, totalPrice));
+                      }}
+                    >
+                      -
+                    </button>
+                    <h4 style={{ padding: "0px 15px" }}>{quantity}</h4>
+                    <button
+                      className="btn btn-light"
+                      onClick={() => {
+                        setQuantity(quantity + 1);
+                        dispatch(addProductWithQuantity(product));
+                        dispatch(addQuantity(quantity, totalPrice));
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <p style={{ fontSize: "13px" }}>{description}</p>
+
+                  <div>
+                    <button
+                      className="btn add-to-cart"
+                      onClick={() => {
+                        debugger;
+                        if (quantity > 1) {
+                          dispatch(
+                            addToCart({
+                              id,
+                              title,
+                              description,
+                              image,
+                              price,
+                              category,
+                              quantity,
+                              totalPrice,
+                            })
+                          );
+                        } else {
+                          dispatch(
+                            addToCart({
+                              id,
+                              title,
+                              description,
+                              image,
+                              price,
+                              category,
+                              quantity,
+                            })
+                          );
+                        }
+                      }}
+                    >
+                      Add To Cart
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

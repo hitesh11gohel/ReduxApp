@@ -7,4 +7,7 @@ export const ActionTypes = {
   
   ADD_TO_CART: "ADD_TO_CART",
   REMOVE_TO_CART: "REMOVE_TO_CART",
+
+  ADD_QUANTITY: "ADD_QUANTITY",
+  ADD_TO_PRODUCT:"ADD_TO_PRODUCT",
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "./../Redux/actions/actions";
@@ -6,6 +6,7 @@ import { addToCart } from "./../Redux/actions/actions";
 const ProductComponent = () => {
   const products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
 
   const renderList = products.map(({ id, title, image, price, category }) => {
     return (
@@ -40,7 +41,10 @@ const ProductComponent = () => {
                 tabIndex="0"
                 style={{ width: "100%", marginTop: "5px" }}
                 onClick={() => {
-                  dispatch(addToCart({id, title, image, price, category }));
+                  dispatch(
+                    addToCart({ id, title, image, price, category, quantity })
+                  );
+                  console.log("SetQuantity : ", setQuantity(1));
                 }}
               >
                 <div className="hidden content">

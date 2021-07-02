@@ -32,3 +32,11 @@ export const addToCart = (cart) => {
 export const removeToCart = (removedItem) => {
   return { type: ActionTypes.REMOVE_TO_CART, payload: removedItem };
 };
+
+export const addQuantity = (quantity, total) => {
+  return { type: ActionTypes.ADD_QUANTITY, payload: quantity, total };
+};
+
+export const addProductWithQuantity = (product) => {
+  return {type:ActionTypes.ADD_TO_PRODUCT, payload: product}
+}
